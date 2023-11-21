@@ -1,0 +1,103 @@
+/*=================== Модуль прорисовки =====================*/
+
+extern int Telo[n][m];
+
+/*================= Перечень функций модуля =================*/
+PucoBaHue(int LLBeT,int HoMep); // Рисование фигур
+IntToStr(int zislo,char s[]);   // Преобразование целого в строку
+rever(char str[]);              // Переворот строки 
+Xo6oTaHue(int jjj);             // Вывод очков на экран
+Game_Over();
+Pause();
+/*===================== Рисование фигур =====================*/
+PucoBaHue(int LLBeT,int HoMep)
+{
+  int i,j;
+  setfillstyle(1,LLBeT);
+  setcolor(0);
+  if(HoMep==2) setcolor(LLBeT);
+  for(i=0;i<n;i++)
+   for(j=0;j<m;j++)
+     {
+       if ((Telo[i][j]==HoMep))
+	{
+	  x1=125+j*15;
+	  x2=140+j*15;
+	  y1=1+i*15;
+	  y2=16+i*15;
+	  bar(x1,y1,x2,y2);
+	  rectangle(x1,y1,x2,y2);
+	}
+     }
+  return 0;
+}
+/*=========== Преобразование целого в строку ===============*/
+IntToStr(int zislo,char s[])
+{
+  int i,sign;
+  i=0;
+  do
+  {
+    s[i++]=zislo%10+'0';
+  }
+  while((zislo/=10)>0);
+  s[i++]='\0';
+  rever(s);
+  return 0;
+}
+/*=================== Переворот строки  ======================*/
+rever(char str[])
+{
+  int c,i,j;
+  for(i=0,j=strlen(str)-1;i<j;i++,j--)
+   {
+     c=str[i];
+     str[i]=str[j];
+     str[j]=c;
+   }
+  return 0;
+}
+/*==================== Вывод очков на экран ===================*/
+Xo6oTaHue(int jjj)
+{
+
+  char s[100];
+  int i,j;
+  setfillstyle(1,0);
+  bar(getmaxx()-100,30,getmaxx()-30,50);
+  IntToStr(jjj,s);
+  settextstyle(0,0,1);
+  setcolor(15);
+  outtextxy(getmaxx()-80,20,"Ozku");
+  setcolor(15);
+  settextstyle(0,0,1);
+  outtextxy(getmaxx()-80,38,s);
+  if(fmod(jjj,200)==0) Time-=1;
+  return 0;
+}
+/*========================= Проигрыш =========================*/
+Game_Over()
+{
+  setcolor(0);
+  settextstyle(1,0,4);
+  setfillstyle(1,10);
+  bar(160,200,355,240);
+  outtextxy(170,200,"GAME OVER");
+  getch();
+  return 0;
+}
+/*========================= Пауза =========================*/
+Pause()
+{
+  setcolor(0);
+  PucoBaHue(0,3);
+  settextstyle(1,0,4);
+  setfillstyle(1,10);
+  bar(160,200,355,240);
+  outtextxy(210,200,"Pause");
+  getch();
+  PucoBaHue(0,0);
+  PucoBaHue(0,3);
+  PucoBaHue(14,3);
+  return 0;
+}

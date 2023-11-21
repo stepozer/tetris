@@ -1,0 +1,153 @@
+/*===================== Модуль движения =====================*/
+
+extern copy(int mas1[4][4],int mas2[4][4]);
+extern int Telo[n][m];
+
+extern down(int nstroki); 
+extern int OCTAHOBKA1();  
+extern int OCTAHOBKA2(); 
+extern int OCTAHOBKA3(); 
+extern int BpaLLLeHue(int Telo[n][m],int mas[4][4],int X,int Y);
+extern KOHELL();          
+extern HABAHABA();     
+
+/*================= Перечень функций модуля =================*/
+BBB(int time);         // Движение вниз
+RRR();                 // Движение вправо
+LLL();                 // Движение влево
+YckopeHue();           // Ускорение
+nepeBoPoT(char sym);   // Переворот
+/*===================== Движение вниз =======================*/
+BBB(int time)
+{
+  int i,j;
+  PucoBaHue(0,1);
+  for(i=n-1;i>-1;i--)
+    for(j=1;j<m-1;j++)
+      if (Telo[i][j]==1)
+       {
+	 Telo[i+1][j]=Telo[i][j];
+	 Telo[i][j]=0;
+       }
+  PucoBaHue(14,1);
+  delay(time);
+  return 0;
+}
+/*==================== Движение вправо ======================*/
+RRR()
+{
+  int i,j;
+  PucoBaHue(0,1);
+  for(i=0;i<n-1;i++)
+   for(j=m;j>0;j--)
+       if (Telo [i][j]==1)
+	{
+	  Telo[i][j+1]=Telo[i][j];
+	  Telo[i][j]=0;
+	}
+  PucoBaHue(14,1);
+  delay(load);
+  return 0;
+}
+/*===================== Движение влево ======================*/
+LLL()
+{
+  int i,j;
+  PucoBaHue(0,1);
+  for(i=0;i<n-1;i++)
+   for(j=1;j<m;j++)
+       if (Telo [i][j]==1)
+	{
+	  Telo[i][j-1]=Telo[i][j];
+	  Telo[i][j]=0;
+	}
+  PucoBaHue(14,1);
+  delay(load);
+  return 0;
+}
+/*======================== Ускорение ========================*/
+YckopeHue()
+{
+   while ((!kbhit())&&(!OCTAHOBKA1()))
+    BBB(Time/4);
+  if(kbhit())
+  {
+  CcC=getch();
+ 
+  if (CcC==KEY[0]) {if(!OCTAHOBKA3()) LLL();if (OCTAHOBKA1()==0) BBB(Time);}
+    else if (CcC==KEY[1]) {if(!OCTAHOBKA2()) RRR();if       (OCTAHOBKA1()==0) BBB(Time);}
+	  
+	  else if (CcC==KEY[3]) nepeBoPoT('k');
+	  else if (CcC==KEY[4]) nepeBoPoT('l');
+	  else if (CcC==KEY[5]) Pause();
+	  
+
+
+
+
+
+
+
+}
+  return 0;
+}
+/*======================== Переворот ========================*/
+nepeBoPoT(char sym)
+{
+  int i,j,k,l,i1,j1;
+  int revers[4][4];
+  if (sym=='k')
+   {
+     copy(revers,Temp->left->mas);
+     ropu3=Temp->ropu3;
+     BepT=Temp->BepT;
+   }
+  else if (sym=='l')
+   {
+     copy(revers,Temp->right->mas);
+     rop2=Temp->rop2;
+     Bep2=Temp->Bep2;
+   }
+  for(i=0;i<n-1;i++)
+    for(j=1;j<m-1;j++)
+      if (Telo[i][j]==1) goto aa;
+  aa:
+  
+  
+  int i3,j3;
+  if ((sym=='k')&&(BpaLLLeHue(Telo,revers,j+ropu3,i+BepT)==0)) return 0;
+  else if ((sym=='l')&&(BpaLLLeHue(Telo,revers,j+rop2,i+Bep2)==0)) return 0;
+  
+  for(i3=0;i3<n-1;i3++)
+   for(j3=1;j3<m-1;j3++)
+     if (Telo[i3][j3]==1) Telo[i3][j3]=0;
+  
+  if(sym=='k')
+  {
+    
+     for(k=i+BepT,i1=0; i1<4; k++,i1++)
+     for(l=j+ropu3,j1=0; j1<4; l++,j1++)
+       if(revers[i1][j1])Telo[k][l]=revers[i1][j1];
+  }
+   if (sym=='l')
+     {
+        
+       for(k=i+Bep2,i1=0; i1<4; k++,i1++)
+        for(l=j+rop2,j1=0; j1<4; l++,j1++)
+          if(revers[i1][j1])Telo[k][l]=revers[i1][j1];
+     } 
+  PucoBaHue(0,0);
+  //PucoBaHue(0,1);
+
+  PucoBaHue(0,1);
+  PucoBaHue(14,1);
+  if(sym=='k')
+   {
+     Temp=Temp->left;
+     ropu3=Temp->ropu3;
+     BepT=Temp->BepT;
+   }
+  if(sym=='l')
+   Temp=Temp->right;
+  return 0;
+}

@@ -1,0 +1,172 @@
+/*================= Модуль опций =================*/
+OPTIONS();
+HELP();
+KEYBORD();
+KKK();
+
+
+
+
+
+
+/*================= Опции =================*/
+OPTIONS()
+{
+  do
+ {
+  KKK();
+  char SSS[2];
+  cleardevice();
+  outtextxy(200,100,"============ OPTIONS ==========");
+  SSS[0]=KEY[0];
+  SSS[1]='\0';
+  outtextxy(200,130,SSS);
+  outtextxy(217,130,"- gBu>I<eHue B/\\eBo");
+
+  SSS[0]=KEY[1];
+  SSS[1]='\0';
+  outtextxy(200,140,SSS);
+  outtextxy(217,140,"- gBu>I<eHue BnpaBo");
+  
+  SSS[0]=KEY[2];
+  SSS[1]='\0';
+  outtextxy(200,150,SSS);
+  outtextxy(217,150,"- YckopeHue");
+  
+  SSS[0]=KEY[3];
+  SSS[1]='\0';
+  outtextxy(200,160,SSS);
+  outtextxy(217,160,"- nepeBopoT npoTuB zacoBou");
+  
+  SSS[0]=KEY[4];
+  SSS[1]='\0';
+  outtextxy(200,170,SSS);
+  outtextxy(217,170,"- nepeBopoT no zacoBou");
+  
+  SSS[0]=KEY[5];
+  SSS[1]='\0';
+  outtextxy(200,180,SSS);
+  outtextxy(217,180,"- nay3a");
+  
+  SSS[0]=KEY[6];
+  SSS[1]='\0';
+  outtextxy(200,190,SSS);
+  outtextxy(217,190,"- BbIXog");
+ 
+  char yn;
+  
+  outtextxy(200,200,"=======================================");
+  outtextxy(200,210,"XoTuTe /\\u BbI u3MeHuTb YnPaB/\\eHue?");
+  outtextxy(200,220,"Y/N");
+  yn=getch();
+  if((yn=='n')||(yn!='y')) return 0;
+  KEYBORD();
+  }
+  while(1);
+
+
+
+
+
+
+
+
+
+
+  return 0;
+}
+/*================= Управление =================*/
+KEYBORD()
+{
+  FILE *key;
+  cleardevice();
+  char sym;
+  char SSS[2];
+  
+  
+  
+  key=fopen("KB.txt","w");
+  outtextxy(200,160,"gBu>I<eHue B/\\eBo:");
+  sym=getch();
+  fprintf(key,"%c",sym);
+  SSS[0]=sym;
+  SSS[1]='\0';
+  outtextxy(410,160,SSS);
+  
+  outtextxy(200,170,"gBu>I<eHue BnpaBo:");
+  sym=getch();
+  fprintf(key,"%c",sym);
+  SSS[0]=sym;
+  SSS[1]='\0';
+  outtextxy(410,170,SSS);
+  
+  outtextxy(200,180,"YckopeHue:");
+  sym=getch();
+  fprintf(key,"%c",sym);
+  SSS[0]=sym;
+  SSS[1]='\0';
+  outtextxy(410,180,SSS);
+
+  outtextxy(200,190,"nepeBopoT npoTuB zacoBou:");
+  sym=getch();
+  fprintf(key,"%c",sym);
+  SSS[0]=sym;
+  SSS[1]='\0';
+  outtextxy(410,190,SSS);
+
+  outtextxy(200,200,"nepeBopoT no zacoBou:");
+  sym=getch();
+  fprintf(key,"%c",sym);
+  SSS[0]=sym;
+  SSS[1]='\0';
+  outtextxy(410,200,SSS);
+  
+  outtextxy(200,210,"nay3a:");
+  sym=getch();
+  fprintf(key,"%c",sym);
+  SSS[0]=sym;
+  SSS[1]='\0';
+  outtextxy(410,210,SSS);
+
+  outtextxy(200,220,"BbIXog:");
+  sym=getch();
+  fprintf(key,"%c",sym);
+  SSS[0]=sym;
+  SSS[1]='\0';
+  outtextxy(410,220,SSS);
+  fclose(key);
+  getch();
+  return 0;
+}
+/*================= Cчитывание управления =================*/
+KKK()
+{
+  FILE *key;
+  if ((key=fopen("KB.txt","r"))==NULL) return 0;
+  fscanf(key,"%s",&KEY);
+  fclose(key);
+  return 0;
+}
+/*================= Помощь =================*/
+HELP()
+{
+  closegraph();
+  char sym;
+  clrscr();
+  if((f=fopen("HELP.txt","r"))==NULL) {printf("Error"); getch(); return 0;}
+
+  while((fscanf(f,"%c",&sym)!=EOF)&&(!kbhit()))
+   {
+     printf("%c",sym);
+     delay(50);
+
+
+   }
+  getch();
+  fclose(f);
+  int Driver,Mode;
+  Driver=VGA;
+  Mode=VGAHI;
+  initgraph(&Driver,&Mode,"");
+  return 0;
+}
